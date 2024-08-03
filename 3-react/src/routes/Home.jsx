@@ -4,14 +4,18 @@ import { useSelector } from "react-redux";
 
 const Home = () => {
   const items = useSelector((store) => store.items);
-  console.log(items);
+  console.log("Home component - items:", items);
 
   return (
     <main>
       <div className="items-container">
-        {items.map((item) => (
-          <HomeItem key={item.id} item={item} />
-        ))}
+        {Array.isArray(items) && items.length > 0 ? (
+          items.map((item) => (
+            <HomeItem key={item.id} item={item} />
+          ))
+        ) : (
+          <p>No items available</p>
+        )}
       </div>
     </main>
   );

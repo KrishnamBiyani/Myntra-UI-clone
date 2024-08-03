@@ -14,20 +14,28 @@ const FetchItems = () => {
     const signal = controller.signal;
 
     dispatch(fetchStatusActions.markFetchingStarted());
-    fetch("http://localhost:8080/items", { signal })
+    fetch("https://2-actual-backend.vercel.app/items", { signal })
       .then((res) => res.json())
-      .then(({ items }) => {
+      .then((data) => {
+        console.log("Fetched data:", data);
         dispatch(fetchStatusActions.markFetchDone());
         dispatch(fetchStatusActions.markFetchingFinished());
-        dispatch(itemsActions.addInitialItems(items[0]));
+        if (Array.isArray(data.items)) {
+          dispatch(itemsActions.addInitialItems(data.items));
+        } else {
+          console.error("Fetched data is not an array", data.items);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching items:", error);
       });
 
     return () => {
       controller.abort();
     };
-  }, [fetchStatus]);
+  }, [fetchStatus, dispatch]);
 
-  return <div></div>;
+  return null;
 };
 
 export default FetchItems;

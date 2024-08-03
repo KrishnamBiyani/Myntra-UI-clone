@@ -1,13 +1,13 @@
-import {configureStore} from "@reduxjs/toolkit"
-import itemsSlice from "./itemsSlice"
-import fetchStausSlice from "./fetchStatusSlice";
+import { configureStore } from "@reduxjs/toolkit";
+import itemsSlice from "./itemsSlice";
+import fetchStatusSlice from "./fetchStatusSlice";
 import bagSlice from "./bagSlice";
 
-const myntraStore=configureStore({
-    reducer:{
-        items:itemsSlice.reducer,
-        fetchStatus:fetchStausSlice.reducer,
-        bag:bagSlice.reducer
+const myntraStore = configureStore({
+    reducer: {
+        items: itemsSlice.reducer,
+        fetchStatus: fetchStatusSlice.reducer,
+        bag: bagSlice.reducer
     }
 });
 
